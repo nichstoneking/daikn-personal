@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Monaspice";
+  src: url("../public/fonts/0xProtoNerdFontMono-Regular.ttf");
+}
