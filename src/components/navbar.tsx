@@ -10,7 +10,7 @@ interface NavbarProps {
   items: NavItem[];
 }
 
-const Navbar: React.FC<NavbarProps> = ({ logo, items }) => {
+const Navbar: React.FC<NavbarProps> = ({ items }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {

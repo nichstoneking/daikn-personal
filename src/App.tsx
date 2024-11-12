@@ -2,7 +2,6 @@ import "./App.css";
 import Navbar from "./components/navbar.tsx";
 import Footer from "./components/footer.tsx";
 import Ascii from "./components/ascii.tsx";
-import { ImageList, ImageListItem } from "@mui/material";
 
 function App() {
   const navItems = [
