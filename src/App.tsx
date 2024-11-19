@@ -38,10 +38,10 @@ function App() {
 
   const other = [
     {
-      label: "Vim config (catppuccin)",
+      label: "- Vim config (catppuccin) -",
       href: "",
       target: "_blank",
-      info: "i usually jump between this config on nvim/lazyvim, vscode or intellij",
+      info: "i usually jump between this config on nvim/lazyvim, or use vim binds with intellij",
     },
   ];
 
