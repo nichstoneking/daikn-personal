@@ -34,6 +34,12 @@ function App() {
       target: "_blank",
       info: "a discord bot that allows you to get the last 10 figures posted on amiami, and other random utilities like JPY to USD for figure prices",
     },
+    {
+      label: "MIPS Maze",
+      href: "https://github.com/daikonk/mips-maze",
+      target: "_blank",
+      info: "a maze game with randomly placed keys written in MIPS Assembly (my first exposure to programming)",
+    },
   ];
 
   const other = [
