@@ -1,4 +1,4 @@
-import { Github } from "lucide-react";
+import { FaGithub, FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -12,8 +12,17 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="flex items-center space-x-2 hover:text-white transition-colors duration-200"
             >
-              <Github size={20} />
+              <FaGithub />
               <span className="text-sm">GitHub</span>
+            </a>
+            <a
+              href="https://x.com/daiikonk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 hover:text-white transition-colors duration-200"
+            >
+              <FaXTwitter />
+              <span className="text-sm">Twitter</span>
             </a>
           </div>
         </div>
