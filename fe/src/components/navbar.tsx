@@ -82,6 +82,7 @@ const Navbar: React.FC<NavbarProps> = ({ items }) => {
           </div>
         </div>
       )}
+      <hr className="mb-10 mt-5" style={{ borderTop: "2px solid white" }} />
     </nav>
   );
 };
