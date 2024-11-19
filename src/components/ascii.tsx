@@ -3,7 +3,7 @@ import React from "react";
 // Create the functional component
 const Ascii: React.FC = () => {
   return (
-    <div className="text-[10px] leading-[10px] font-medium text-start w-min m-auto pt-6">
+    <div className="text-[10px] leading-[10px] font-monaspice text-start w-min m-auto pt-6">
       <span />
       <span style={{ color: "#a5a1a0" }}>░</span>
       <span style={{ color: "#a5a1a0" }}>░</span>
@@ -27,7 +27,7 @@ const Ascii: React.FC = () => {
       <span style={{ color: "#a29e9d" }}>░</span>
       <span style={{ color: "#a6a2a1" }}>░</span>
       <span style={{ color: "#9e9c9d" }}>░</span>
-      <span style={{ color: "#9d9b9c" }}>─</span>
+      <span style={{ color: "#9d9b9c" }}>-</span>
       <span style={{ color: "#9d9b9c" }}>─</span>
       <span style={{ color: "#9d9b9c" }}>─</span>
       <span style={{ color: "#9d9b9c" }}>─</span>
