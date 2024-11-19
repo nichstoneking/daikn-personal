@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        monaspice: ['"Monaspice"', "sans-serif"],
+        monaspice: ["Monaspice", "sans-serif"],
       },
     },
   },
