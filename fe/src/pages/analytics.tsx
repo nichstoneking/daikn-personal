@@ -11,6 +11,23 @@ const Analytics: React.FC = () => {
       owner: "daikonk",
       repo: "go_interpreter",
     },
+    {
+      label: "Mocktalk",
+      link: "https://github.com/daikonk/mocktalk",
+      info: "a basic code interpreter written in go, my first exposure to go (and TDD)",
+      owner: "daikonk",
+      repo: "mocktalk",
+    },
+  ];
+
+  const completed = [
+    {
+      label: "Go Interpreter",
+      link: "https://github.com/daikonk/go_interpreter",
+      info: "a basic code interpreter written in go, my first exposure to go (and TDD)",
+      owner: "daikonk",
+      repo: "go_interpreter",
+    },
   ];
 
   return (
@@ -25,7 +42,16 @@ const Analytics: React.FC = () => {
           repo={item.repo}
         />
       ))}
-      <CompletedRepo />
+      {completed.map((item, index) => (
+        <CompletedRepo
+          key={index}
+          label={item.label}
+          link={item.link}
+          info={item.info}
+          owner={item.owner}
+          repo={item.repo}
+        />
+      ))}
     </>
   );
 };

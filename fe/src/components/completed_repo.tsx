@@ -9,7 +9,15 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const CompletedRepo: React.FC = () => {
+interface RepoProps {
+  label: string;
+  owner: string;
+  repo: string;
+  link: string;
+  info: string;
+}
+
+const CompletedRepo: React.FC<RepoProps> = ({ label, link }) => {
   // Sample data for the chart
   const chartData = [
     { month: "Jan", value: 65 },
@@ -31,7 +39,13 @@ const CompletedRepo: React.FC = () => {
       <div className="font-monaspice flex justify-between text-sm">
         <div className="text-start">
           <div className="pb-1 text-sm">Repo Name</div>
-          <div className="text-sm text-blue-600">liuyabwddashjd</div>
+          <a
+            className="text-sm text-blue-600 hover:text-blue-700 active:text-blue-800"
+            target="_blank"
+            href={link}
+          >
+            {label}
+          </a>
         </div>
         <div className="text-end">
           <div className="pb-1 text-sm">Last Accessed</div>
