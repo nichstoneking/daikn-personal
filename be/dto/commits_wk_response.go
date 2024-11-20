@@ -4,5 +4,5 @@ type CommitsWkResponse struct {
 	Recent   int     `json:"recent"`
 	Increase float64 `json:"increase"`
 	Monthly  []int   `json:"monthly"`
-	Views    int     `json:"views"`
+	Accessed int64   `json:"accessed"`
 }

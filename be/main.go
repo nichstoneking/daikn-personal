@@ -34,7 +34,7 @@ func main() {
 	router := gin.Default()
 
 	router.Use(CORSMiddleware())
-	router.POST("/repo", service.GetWkCommits)
+	router.POST("/repo", service.GetInprogRepoData)
 
 	router.Run("localhost:8080")
 }

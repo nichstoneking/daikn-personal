@@ -105,10 +105,6 @@ const InprogressRepo: React.FC<RepoProps> = ({ label, link, owner, repo }) => {
               {data.increase * 100}%
             </span>
           </div>
-          <div className="flex flex-col items-center">
-            <h3 className="text-md text-gray-500">Repo Views</h3>
-            <div className="text-xl text-blue-600 mb-1">{data.views}</div>
-          </div>
         </div>
 
         {/* Chart Column */}
