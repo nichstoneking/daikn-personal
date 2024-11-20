@@ -6,8 +6,8 @@ import Navbar from "./components/navbar.tsx";
 const App = () => {
   const navItems = [
     { label: "Home", href: "/" },
-    { label: "Stats", href: "/stats" },
     { label: "Projects", href: "/projects" },
+    { label: "Stats", href: "/stats" },
   ];
   return (
     <div className="flex flex-row justify-center text-white bg-[#111313] overflow-auto">

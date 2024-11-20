@@ -21,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ items }) => {
     <nav>
       <div className="flex items-end max-w-6xl mx-auto h-16">
         {/* Desktop Navigation */}
-        <div className="w-full flex flex-row justify-between hidden md:flex space-x-8 font-monaspice">
+        <div className="w-full flex-row hidden md:flex font-monaspice justify-center gap-24">
           {items.map((item, index) => (
             <a
               key={index}
