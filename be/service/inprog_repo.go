@@ -4,8 +4,10 @@ import (
 	"daikn/be/dto"
 	"daikn/be/error_handler"
 	"daikn/be/externals"
+	"fmt"
 	"math"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -37,17 +39,6 @@ func GetInprogRepoData(c *gin.Context) {
 func calcWkCommitResponse(stats dto.CommitActivityStats) dto.CommitsWkResponse {
 	var response dto.CommitsWkResponse
 
-	// get current week and set value to Recent
-	response.Recent = stats[51].Total
-
-	// calculate percentage increase in commits and set
-	denom := stats[50].Total
-	if stats[50].Total == 0 {
-		denom = 1
-	}
-	// gets increase as a float and rounds to 2nd decimal place
-	response.Increase = math.Round((float64(stats[51].Total-stats[50].Total)/float64(denom))*100) / 100
-
 	// calculate commits by month
 	var Monthly []int
 	// Jan - Dec
@@ -68,9 +59,22 @@ func calcWkCommitResponse(stats dto.CommitActivityStats) dto.CommitsWkResponse {
 
 	for i, j := 0, len(stats)-1; i <= j; j = j - 1 {
 		if stats[j].Total != 0 {
-			response.Accessed = stats[j].Week
+			t := time.Unix(stats[j].Week, 0)
+			response.Accessed = fmt.Sprint(t.Format("2006-01-02"))
+			break
 		}
 	}
+
+	// get current week and set value to Recent
+	response.Recent = Monthly[11]
+
+	// calculate percentage increase in commits and set
+	denom := Monthly[10]
+	if Monthly[10] == 0 {
+		denom = 1
+	}
+	// gets increase as a float and rounds to 2nd decimal place
+	response.Increase = math.Round((float64(Monthly[11]-Monthly[10])/float64(denom))*100) / 100
 
 	return response
 }

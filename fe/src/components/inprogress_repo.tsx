@@ -38,7 +38,7 @@ const InprogressRepo: React.FC<RepoProps> = ({ label, link, owner, repo }) => {
     recent: 0,
     increase: 0,
     monthly: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    views: 0,
+    accessed: "",
   });
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const InprogressRepo: React.FC<RepoProps> = ({ label, link, owner, repo }) => {
 
   return (
     <>
-      <div className="font-monaspice flex justify-between text-sm">
+      <div className="font-monaspice flex justify-between text-sm w-full">
         <div className="text-start">
           <div className="pb-1 text-sm">Repo Name</div>
           <a
@@ -91,15 +91,17 @@ const InprogressRepo: React.FC<RepoProps> = ({ label, link, owner, repo }) => {
         </div>
         <div className="text-end">
           <div className="pb-1 text-sm">Last Accessed</div>
-          <div className="text-sm text-gray-500">Feb,10,2024</div>
+          <div className="text-sm text-gray-500">{data.accessed}</div>
         </div>
       </div>
       <hr className="mb-4 mt-4" style={{ borderTop: "2px solid white" }} />
-      <div className="flex px-6 rounded-lg font-monaspice">
+      <div className="flex px-6 rounded-lg font-monaspice w-full">
         {/* Stats Column */}
         <div className="w-1/3 pr-4 flex flex-col items-center justify-evenly">
           <div className="flex flex-col items-center">
-            <h3 className="text-md text-gray-500">Commits this Week</h3>
+            <h3 className="text-center text-base text-gray-500">
+              Commits this Month
+            </h3>
             <div className="text-xl text-blue-600 mb-1">{data.recent}</div>
             <span className="text-xs text-green-600">
               {data.increase * 100}%

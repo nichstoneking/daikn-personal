@@ -18,6 +18,13 @@ const Analytics: React.FC = () => {
       owner: "daikonk",
       repo: "mocktalk",
     },
+    {
+      label: "This site",
+      link: "https://github.com/daikonk/daikn-personal",
+      info: "a basic code interpreter written in go, my first exposure to go (and TDD)",
+      owner: "daikonk",
+      repo: "daikn-personal",
+    },
   ];
 
   const completed = [
