@@ -57,6 +57,13 @@ function Home() {
     },
   ];
 
+  const variants = {
+    initial: { height: 0, opacity: 0 },
+    animate: { height: "auto", opacity: 1 },
+    exit: { height: 0, opacity: 0 },
+    transition: { type: "spring", duration: 0.4 },
+  };
+
   return (
     <>
       <p className="mt-8 font-monaspice text-start">Hi, i'm Nick</p>
@@ -88,7 +95,7 @@ function Home() {
       <p className="mt-8 font-monaspice text-start">In progress</p>
       {inProgress.map((item, index) => (
         <p
-          className="px-2 mt-4 font-monaspice text-sm text-start hover:bg-[#141717] duration-300 hover:rounded-[4px] py-3 cursor-pointer"
+          className="px-2 mt-4 font-monaspice text-sm text-start hover:bg-[#141717] duration-300 hover:rounded-[4px] py-3 cursor-pointer overflow-hidden"
           onClick={() => {
             const nextInProgress = inProgress.map((c, i) => {
               if (i === index) {
@@ -117,10 +124,10 @@ function Home() {
             <AnimatePresence>
               {item.expanded && (
                 <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.4 }}
+                  variants={variants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
                   className="w-full"
                 >
                   <InProgressRepo
