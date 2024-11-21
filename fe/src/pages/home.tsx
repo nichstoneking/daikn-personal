@@ -2,6 +2,7 @@ import { useState } from "react";
 import Footer from "../components/footer.tsx";
 import Ascii from "../components/ascii.tsx";
 import InProgressRepo from "../components/inprogress_repo.tsx";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Home() {
   const [completed, setCompleted] = useState([
@@ -20,15 +21,32 @@ function Home() {
       expanded: false,
     },
   ]);
-  const inProgress = [
+
+  const [inProgress, setInProgress] = useState([
+    {
+      label: "This site",
+      link: "/",
+      info: "my first (not completely scrapped together) website that i designed on my own with new frameworks (gin go and vite react) to showcase stuff",
+      owner: "daikonk",
+      repo: "daikn-personal",
+      expanded: false,
+    },
     {
       label: "Mocktalk",
-      href: "https://mocktalk.app",
-      target: "_blank",
+      link: "https://github.com/daikonk/mocktalk",
       info: "a mock interview platform for programmers that helps you clearly dictate your thought-process as you problem solve",
-      images: [{ src: "./assets/bleh.jpg", title: "" }],
+      owner: "daikonk",
+      repo: "mocktalk",
+      expanded: false,
     },
-  ];
+    {
+      label: "Go Interpreter",
+      link: "https://github.com/daikonk/go_interpreter",
+      info: "a basic code interpreter written in go, my first exposure to go (and TDD)",
+      owner: "daikonk",
+      repo: "go_interpreter",
+    },
+  ]);
 
   const other = [
     {
@@ -38,16 +56,6 @@ function Home() {
       info: "i usually jump between this config on nvim/lazyvim, or use vim binds with intellij",
     },
   ];
-
-  // const nextCounters = counters.map((c, i) => {
-  //   if (i === index) {
-  //     // Increment the clicked counter
-  //     return c + 1;
-  //   } else {
-  //     // The rest haven't changed
-  //     return c;
-  //   }
-  // });
 
   return (
     <>
@@ -80,19 +88,52 @@ function Home() {
       <p className="mt-8 font-monaspice text-start">In progress</p>
       {inProgress.map((item, index) => (
         <p
-          className="mt-4 font-monaspice text-sm text-start hover:bg-[#141717] duration-300 py-3 cursor-pointer"
-          onClick={() => {}}
+          className="px-2 mt-4 font-monaspice text-sm text-start hover:bg-[#141717] duration-300 hover:rounded-[4px] py-3 cursor-pointer"
+          onClick={() => {
+            const nextInProgress = inProgress.map((c, i) => {
+              if (i === index) {
+                // Increment the clicked counter
+                c.expanded = !c.expanded;
+                return c;
+              } else {
+                // The rest haven't changed
+                return c;
+              }
+            });
+            setInProgress(nextInProgress);
+          }}
         >
-          <div className="flex flex-col gap-4 text-sm font-medium items-start">
-            <a
-              key={index}
-              href={item.href}
-              target={item.target}
-              className="text-[#3F51B5] hover:text-[#334296] rounded-md text-sm font-medium"
-            >
-              {item.label}
-            </a>
-            {item.expanded ? <InProgressRepo className="w-full" /> : <></>}
+          <div className="flex flex-col text-sm font-medium items-start">
+            <div className="font-monaspice flex justify-between text-sm w-full mb-4">
+              <a
+                className="text-start text-sm text-[#3F51B5] hover:text-[#334296] active:text-blue-800"
+                target="_blank"
+                href={item.link}
+              >
+                {item.label}
+              </a>
+              <div className="text-end text-sm text-gray-500">2024-01-20</div>
+            </div>
+            <AnimatePresence>
+              {item.expanded && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="w-full"
+                >
+                  <InProgressRepo
+                    key={index}
+                    label={item.label}
+                    link={item.link}
+                    info={item.info}
+                    owner={item.owner}
+                    repo={item.repo}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
             <p>{item.info}</p>
           </div>
         </p>
