@@ -175,7 +175,9 @@ function Home() {
           </div>
         </div>
       ))}
-      <Ascii />
+      <div className="overflow-hidden flex justify-center">
+        <Ascii />
+      </div>
       <Footer />
     </>
   );

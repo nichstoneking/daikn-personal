@@ -10,7 +10,7 @@ const App = () => {
   ];
   return (
     <div className="flex flex-row justify-center text-white bg-[#111313] overflow-auto">
-      <div className="w-[600px] h-screen justify-self-center text-center">
+      <div className="sm:w-[600px] w-[300px] h-screen justify-self-center text-center">
         <Navbar items={navItems} logo="./assets/react.svg" />
         <BrowserRouter>
           <Routes>

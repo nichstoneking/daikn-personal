@@ -21,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ items }) => {
     <nav>
       <div className="flex items-end max-w-6xl mx-auto h-16">
         {/* Desktop Navigation */}
-        <div className="w-full flex-row hidden md:flex font-monaspice justify-center gap-24">
+        <div className="w-full flex-row hidden sm:flex font-monaspice justify-center gap-24">
           {items.map((item, index) => (
             <a
               key={index}
@@ -34,7 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({ items }) => {
         </div>
 
         {/* Mobile Navigation Button */}
-        <div className="md:hidden">
+        <div className="sm:hidden">
           <button
             onClick={toggleMenu}
             className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 focus:outline-none"
@@ -68,7 +68,7 @@ const Navbar: React.FC<NavbarProps> = ({ items }) => {
 
       {/* Mobile Navigation Menu */}
       {isOpen && (
-        <div className="md:hidden">
+        <div className="sm:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {items.map((item, index) => (
               <a
