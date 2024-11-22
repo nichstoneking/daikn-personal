@@ -11,13 +11,14 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 )
 
 func GetInprogRepoData(c *gin.Context) {
 retry:
 	request := &dto.RepositoryRequest{}
 	// validate request
-	if err := c.BindJSON(&request); err != nil {
+	if err := c.ShouldBindBodyWith(&request, binding.JSON); err != nil {
 		c.JSON(http.StatusBadRequest, error_handler.HandleValidationError(err))
 		return
 	}

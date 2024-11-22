@@ -10,14 +10,21 @@ import {
 } from "recharts";
 
 interface RepoProps {
-  label: string;
   owner: string;
   repo: string;
-  link: string;
-  info: string;
+  setDates: React.Dispatch<SetStateAction<string>>;
+  dates: string[];
+  index: number;
 }
 
-const InprogressRepo: React.FC<RepoProps> = ({ owner, repo }) => {
+const InprogressRepo: React.FC<RepoProps> = ({
+  owner,
+  repo,
+  setDates,
+  dates,
+  index,
+}) => {
+  const apiUrl = import.meta.env.VITE_APP_API_URL;
   // Sample data for the chart
   const [chartData, setChartData] = useState([
     { month: "Jan", commits: 65 },
@@ -36,11 +43,36 @@ const InprogressRepo: React.FC<RepoProps> = ({ owner, repo }) => {
   const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState({
-    recent: 12,
-    increase: 1.34,
-    monthly: [0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0],
-    accessed: "2024-11-20",
+    recent: "err",
+    increase: 0,
+    monthly: [65, 59, 80, 81, 56, 55, 40, 48, 52, 69, 75, 88],
+    accessed: "",
   });
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            owner: owner,
+            repo: repo,
+          }),
+        });
+        const data = await response.json();
+        setData(data);
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        console.log("error fetching data: ", err);
+      }
+    }
+    fetchData();
+  }, [owner, repo]);
 
   useEffect(() => {
     setChartData([
@@ -56,28 +88,16 @@ const InprogressRepo: React.FC<RepoProps> = ({ owner, repo }) => {
       { month: "Nov", commits: data.monthly[10] },
       { month: "Dec", commits: data.monthly[11] },
     ]);
-  }, [data, chartData]);
-
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      const response = await fetch("http://localhost:8080/repo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          owner: owner,
-          repo: repo,
-        }),
-      });
-
-      const data = await response.json();
-      setData(data);
-      setLoading(false);
-    }
-    fetchData();
-  }, [owner, repo]);
+    const newDates = dates.map((c, i) => {
+      if (i === index) {
+        c = data.accessed;
+        return c;
+      } else {
+        return c;
+      }
+    });
+    setDates(newDates);
+  }, [data, setChartData]);
 
   return (
     <>
@@ -86,7 +106,9 @@ const InprogressRepo: React.FC<RepoProps> = ({ owner, repo }) => {
         style={{ borderTop: "2px solid white" }}
       />
       {loading ? (
-        <></>
+        <div className="h-[256px] w-full flex items-center">
+          <span className="loader mx-auto"></span>
+        </div>
       ) : (
         <>
           <div className="flex px-6 rounded-lg font-monaspice w-full">
