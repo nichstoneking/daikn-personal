@@ -36,5 +36,5 @@ func main() {
 	router.Use(CORSMiddleware())
 	router.POST("/repo", service.GetInprogRepoData)
 
-	router.Run("localhost:8080")
+	router.Run()
 }
