@@ -86,9 +86,7 @@ const InprogressRepo: React.FC<RepoProps> = ({ owner, repo }) => {
         style={{ borderTop: "2px solid white" }}
       />
       {loading ? (
-        <div className="h-[256px] w-full flex items-center">
-          <span className="loader mx-auto"></span>
-        </div>
+        <></>
       ) : (
         <>
           <div className="flex px-6 rounded-lg font-monaspice w-full">

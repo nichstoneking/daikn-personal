@@ -1,6 +1,7 @@
 package service
 
 import (
+	"daikn/be/custom_errors"
 	"daikn/be/dto"
 	"daikn/be/error_handler"
 	"daikn/be/externals"
@@ -13,21 +14,18 @@ import (
 )
 
 func GetInprogRepoData(c *gin.Context) {
+retry:
 	request := &dto.RepositoryRequest{}
-
 	// validate request
 	if err := c.BindJSON(&request); err != nil {
 		c.JSON(http.StatusBadRequest, error_handler.HandleValidationError(err))
 		return
 	}
-
-	// repoStats, err := externals.GetWkCommits(*request)
-	// if err != nil {
-	// 	c.JSON(http.StatusNotFound, err)
-	// 	return
-	// }
-
 	repoCommits, err := externals.GetYrCommits(*request)
+	if _, ok := err.(*custom_errors.RetryError); ok {
+		fmt.Println("202 recieved retrying...")
+		goto retry
+	}
 	if err != nil {
 		c.JSON(http.StatusNotFound, err)
 		return
