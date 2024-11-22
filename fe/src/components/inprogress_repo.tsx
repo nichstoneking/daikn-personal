@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, SetStateAction } from "react";
 import {
   LineChart,
   Line,
@@ -12,7 +12,7 @@ import {
 interface RepoProps {
   owner: string;
   repo: string;
-  setDates: React.Dispatch<SetStateAction<string>>;
+  setDates: React.Dispatch<SetStateAction<string[]>>;
   dates: string[];
   index: number;
 }

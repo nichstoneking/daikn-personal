@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/home.tsx";
-import Analytics from "./pages/analytics.tsx";
 import Navbar from "./components/navbar.tsx";
 
 const App = () => {
@@ -16,7 +15,6 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/stats" element={<Analytics />} />
           </Routes>
         </BrowserRouter>
       </div>
