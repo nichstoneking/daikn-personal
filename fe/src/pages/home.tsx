@@ -52,7 +52,7 @@ function Home() {
   const other = [
     {
       label: "- Vim config (catppuccin) -",
-      href: "",
+      href: "https://github.com/daikonk/nvim",
       target: "_blank",
       info: "i usually jump between this config on nvim/lazyvim, or use vim binds with intellij",
     },
