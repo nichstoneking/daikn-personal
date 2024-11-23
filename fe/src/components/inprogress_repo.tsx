@@ -111,9 +111,9 @@ const InprogressRepo: React.FC<RepoProps> = ({
         </div>
       ) : (
         <>
-          <div className="flex px-6 rounded-lg font-monaspice w-full">
+          <div className="flex flex-col sm:flex-row px-6 rounded-lg font-monaspice w-full">
             {/* Stats Column */}
-            <div className="w-1/3 pr-4 flex flex-col items-center justify-evenly">
+            <div className="w-full sm:w-1/3 pr-4 flex flex-col items-center justify-evenly">
               <div className="flex flex-col items-center">
                 <h3 className="text-center text-base text-gray-500">
                   Commits this Month
@@ -126,8 +126,8 @@ const InprogressRepo: React.FC<RepoProps> = ({
             </div>
 
             {/* Chart Column */}
-            <div className="w-2/3 h-64 flex items-center text-sm">
-              <ResponsiveContainer width="95%" height="80%">
+            <div className="w-[300px] sm:w-2/3 sm:h-64 sm:ml-0 ml-[-45px] h-52 py-4 flex sm:items-center items-start text-sm">
+              <ResponsiveContainer width="95%" height="100%">
                 <LineChart data={chartData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="month" />
