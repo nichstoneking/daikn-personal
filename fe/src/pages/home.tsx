@@ -18,7 +18,7 @@ function Home() {
     },
     {
       label: "Mocktalk",
-      link: "https://github.com/daikonk/mocktalk",
+      link: "https://mocktalk.app",
       info: "a mock interview platform for programmers that helps you clearly dictate your thought-process as you problem solve",
       owner: "daikonk",
       repo: "mocktalk",
@@ -46,6 +46,12 @@ function Home() {
       href: "https://github.com/daikonk/mips-maze",
       target: "_blank",
       info: "a maze game with randomly placed keys written in MIPS Assembly (my first exposure to programming)",
+    },
+    {
+      label: "Voice + Video AI Agent",
+      href: "https://github.com/daikonk/VideoAgentOpenAI",
+      target: "_blank",
+      info: "1-day MVP for an internship project proof-of-concept. Uses HeyGen and the new OpenAI Realtime API to generate a fast and realistic interactive AI experience",
     },
   ];
 
