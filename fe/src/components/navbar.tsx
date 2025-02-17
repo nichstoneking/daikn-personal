@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+//import React, { useState } from "react";
 
-interface NavItem {
-  label: string;
-  href: string;
-}
-
-interface NavbarProps {
-  logo?: string;
-  items: NavItem[];
-}
+//interface NavItem {
+//  label: string;
+//  href: string;
+//}
+//
+//interface NavbarProps {
+//  logo?: string;
+//  items: NavItem[];
+//}
 
 //const Navbar: React.FC<NavbarProps> = ({ items }) => {
 //  const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +16,7 @@ interface NavbarProps {
   //const toggleMenu = () => {
   //  setIsOpen(!isOpen);
   //};
+
 const Navbar = () => {
   return (
     <nav>
