@@ -23,15 +23,7 @@ function Home() {
       owner: "daikonk",
       repo: "mocktalk",
       expanded: false,
-    },
-    {
-      label: "Go Interpreter",
-      link: "https://github.com/daikonk/go_interpreter",
-      info: "a basic code interpreter written in go, my first exposure to go (and TDD)",
-      owner: "daikonk",
-      repo: "go_interpreter",
-      expanded: false,
-    },
+    }
   ]);
 
   const completed = [
@@ -48,10 +40,16 @@ function Home() {
       info: "a maze game with randomly placed keys written in MIPS Assembly (my first exposure to programming)",
     },
     {
-      label: "Voice + Video AI Agent",
-      href: "https://github.com/daikonk/VideoAgentOpenAI",
+      label: "Sports-Matchup Website",
+      href: "https://github.com/daikonk/sports-matchup",
       target: "_blank",
-      info: "1-day MVP for an internship project proof-of-concept. Uses HeyGen and the new OpenAI Realtime API to generate a fast and realistic interactive AI experience",
+      info: "first collaborative web project, a match-up site for local sports enthusiasts"
+    },
+    {
+      label: "Catt Interpreter",
+      href: "https://github.com/daikonk/catt",
+      target: "_blank",
+      info: "a code interpreter for a pet language. uses a few build-ins made on-top of api requests, also has a basic LSP (wip pushed to later)"
     },
   ];
 
