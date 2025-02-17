@@ -10,13 +10,13 @@ interface NavbarProps {
   items: NavItem[];
 }
 
-const Navbar: React.FC<NavbarProps> = ({ items }) => {
-  const [isOpen, setIsOpen] = useState(false);
+//const Navbar: React.FC<NavbarProps> = ({ items }) => {
+//  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
+  //const toggleMenu = () => {
+  //  setIsOpen(!isOpen);
+  //};
+const Navbar = () => {
   return (
     <nav>
       <hr className="mb-10 mt-5" style={{ borderTop: "2px solid white" }} />
