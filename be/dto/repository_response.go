@@ -1,8 +1,8 @@
 package dto
 
-type CommitsWkResponse struct {
+type RepositoryResponse struct {
 	Recent   int     `json:"recent"`
 	Increase float64 `json:"increase"`
-	Monthly  []int   `json:"monthly"`
+	Monthly  [12]int `json:"monthly"`
 	Accessed string  `json:"accessed"`
 }
