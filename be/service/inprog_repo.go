@@ -46,10 +46,10 @@ func calcWkCommitResponse(stats dto.CommitActivityStats) dto.RepositoryResponse 
 	currMonth := int(currentTime.Month()) - 1
 	currDay := int(currentTime.Day()) - 1
 	currWk := 51
-	year := int(currentTime.Year())
+	currYear := int(currentTime.Year())
 	remainder := int(currentTime.Weekday())
 
-	if year%4 == 0 && (year%100 != 0 || year%400 == 0) {
+	if currYear%4 == 0 && (currYear%100 != 0 || currYear%400 == 0) {
 		daysInMonth[1] = 28
 	}
 
@@ -88,9 +88,14 @@ func calcWkCommitResponse(stats dto.CommitActivityStats) dto.RepositoryResponse 
 	}
 
 	// get current week and set value to Recent
-	response.Recent = Monthly[11]
+	response.Recent = Monthly[int(currentTime.Month())-1]
 
 	// calculate percentage increase in commits and set
+	if int(currentTime.Month())-1 == 0 {
+		response.Increase = math.Round((float64(response.Recent)/float64(1))*100) / 100
+	} else {
+		response.Increase = math.Round(((float64(response.Recent)-float64(int(currentTime.Month())-2))/float64(Monthly[int(currentTime.Month())-1]))*100) / 100
+	}
 	denom := Monthly[10]
 	if Monthly[10] == 0 {
 		denom = 1
