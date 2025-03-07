@@ -57,7 +57,7 @@ const Home: React.FC<HomeProps> = ({ items }) => {
         },
         {
             label: "Catt Interpreter",
-            href: "https://github.com/daikonk/catt",
+            href: "https://catt-site.vercel.app/",
             target: "_blank",
             info: "a code interpreter for a pet language. uses a few build-ins made on-top of api requests, also has a basic LSP (wip pushed to later)"
         },
@@ -157,7 +157,7 @@ const Home: React.FC<HomeProps> = ({ items }) => {
             <hr className="my-10" style={{ borderTop: "2px solid white" }} />
             <p className="mt-8 font-monaspice text-end">Completed/Ended</p>
             {completed.map((item, index) => (
-                <div key={index} className="mt-4 font-monaspice text-sm text-end">
+                <div key={index} className="px-2 mt-4 font-monaspice text-sm text-end py-3 overflow-hidden">
                     <div className="flex flex-col gap-4 text-sm font-medium items-end">
                         <a
                             href={item.href}

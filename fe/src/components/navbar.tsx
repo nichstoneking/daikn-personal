@@ -33,7 +33,7 @@ const Navbar: React.FC<NavbarProps> = ({ items }) => {
         <div className="overflow-hidden flex justify-center">
           <AsciiHeader />
         </div>
-        <div className="flex items-end max-w-6xl mx-auto h-10">
+        <div className="flex items-end max-w-6xl mx-auto h-8">
           {/* Desktop Navigation */}
           <div className="w-full flex-row hidden sm:flex font-monaspice justify-center gap-24">
             {items.map((item, index) => (
@@ -94,7 +94,7 @@ const Navbar: React.FC<NavbarProps> = ({ items }) => {
               </div>
             </div>
         )}
-        <hr ref={items[0].ref} className="mb-10 mt-5 scroll-m-5" style={{ borderTop: "2px solid white" }} />
+        <hr ref={items[0].ref} className="mb-10 mt-3 scroll-m-5" style={{ borderTop: "2px solid white" }} />
       </nav>
   );
 };
