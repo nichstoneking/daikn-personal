@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="flex flex-row justify-center gap-2">
           <div className="flex items-center space-x-6">
             <a
-              href="https://github.com/daikonk"
+              href="https://github.com/nichstoneking"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center space-x-2 hover:text-white transition-colors duration-200"
@@ -16,7 +16,7 @@ const Footer = () => {
               <span className="text-sm">GitHub</span>
             </a>
             <a
-              href="https://x.com/daiikonk"
+              href="https://x.com/_cr2st"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center space-x-2 hover:text-white transition-colors duration-200"

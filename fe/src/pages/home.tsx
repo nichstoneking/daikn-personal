@@ -25,14 +25,6 @@ const Home: React.FC<HomeProps> = ({ items }) => {
             owner: "daikonk",
             repo: "daikn-personal",
             expanded: false,
-        },
-        {
-            label: "Mocktalk",
-            link: "https://mocktalk.app",
-            info: "a mock interview platform for programmers that helps you clearly dictate your thought-process as you problem solve",
-            owner: "daikonk",
-            repo: "mocktalk",
-            expanded: false,
         }
     ]);
 
@@ -61,14 +53,20 @@ const Home: React.FC<HomeProps> = ({ items }) => {
             target: "_blank",
             info: "a code interpreter for a pet language. uses a few build-ins made on-top of api requests, also has a basic LSP (wip pushed to later)"
         },
+        {
+            label: "Mocktalk",
+            href: "https://mocktalk.app",
+            target: "_blank",
+            info: "a mock interview platform for programmers that helps you clearly dictate your thought-process as you problem solve",
+        }
     ];
 
     const other = [
         {
-            label: "- Vim config (catppuccin) -",
-            href: "https://github.com/daikonk/nvim",
-            target: "_blank",
-            info: "i usually jump between this config on nvim/lazyvim, or use vim binds with intellij",
+            label: "IDE/Development Configs",
+            target: "",
+            href: "",
+            info: "previously on nvim, my wagey job had me move back to typical ide's so now im on cursor or intellij w vim binds",
         },
     ];
 
