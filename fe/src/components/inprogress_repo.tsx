@@ -8,6 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { fetchRepoData } from "../utils/api";
 
 interface RepoProps {
   owner: string;
@@ -24,7 +25,6 @@ const InprogressRepo: React.FC<RepoProps> = ({
   dates,
   index,
 }) => {
-  const apiUrl = import.meta.env.VITE_APP_API_URL;
   // Sample data for the chart
   const [chartData, setChartData] = useState([
     { month: "Jan", commits: 65 },
@@ -53,17 +53,7 @@ const InprogressRepo: React.FC<RepoProps> = ({
     async function fetchData() {
       setLoading(true);
       try {
-        const response = await fetch(apiUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            owner: owner,
-            repo: repo,
-          }),
-        });
-        const data = await response.json();
+        const data = await fetchRepoData(owner, repo);
         setData(data);
         setLoading(false);
       } catch (err) {

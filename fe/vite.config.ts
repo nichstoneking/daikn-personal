@@ -8,6 +8,14 @@ export default defineConfig({
       "Cross-Origin-Opener-Policy": "same-origin",
       "Cross-Origin-Embedder-Policy": "require-corp",
     },
+    watch: {
+      usePolling: false,
+      ignored: ['**/node_modules/**', '**/.git/**']
+    }
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom'],
+    exclude: ['@vite/client', '@vite/env']
   },
   plugins: [react()],
 });

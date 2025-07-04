@@ -18,21 +18,42 @@ retry:
 	request := &dto.RepositoryRequest{}
 	// validate request
 	if err := c.ShouldBindBodyWith(&request, binding.JSON); err != nil {
+		fmt.Printf("Request validation error: %v\n", err)
 		c.JSON(http.StatusBadRequest, errors.HandleValidationError(err))
 		return
 	}
 
+	fmt.Printf("Processing request for owner: %s, repo: %s\n", request.Owner, request.Repo)
+
 	repoCommits, err := externals.GetYrCommits(*request)
 	if _, ok := err.(*errors.RetryError); ok {
-		fmt.Println("202 recieved retrying...")
+		fmt.Println("202 received retrying...")
 		goto retry
 	}
 	if err != nil {
-		c.JSON(http.StatusNotFound, err)
+		fmt.Printf("Error fetching commits: %v\n", err)
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.IndentedJSON(http.StatusCreated, calcWkCommitResponse(*repoCommits))
+	if repoCommits == nil {
+		fmt.Println("No commit data received")
+		c.JSON(http.StatusNotFound, gin.H{"error": "No commit data available"})
+		return
+	}
+
+	fmt.Printf("Received %d weeks of commit data\n", len(*repoCommits))
+
+	// Add recovery for potential panics in calcWkCommitResponse
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Printf("Panic in calcWkCommitResponse: %v\n", r)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
+		}
+	}()
+
+	response := calcWkCommitResponse(*repoCommits)
+	c.IndentedJSON(http.StatusCreated, response)
 }
 
 func calcWkCommitResponse(stats dto.CommitActivityStats) dto.RepositoryResponse {
@@ -53,27 +74,66 @@ func calcWkCommitResponse(stats dto.CommitActivityStats) dto.RepositoryResponse 
 		daysInMonth[1] = 28
 	}
 
-	fmt.Println(stats[51].Total)
+	// Add bounds checking to prevent array out of bounds errors
+	if currWk >= len(stats) {
+		currWk = len(stats) - 1
+	}
+	if currWk < 0 {
+		currWk = 0
+	}
+
+	fmt.Println(stats[currWk].Total)
 
 	for ; currMonth >= 0; currMonth-- {
 		fmt.Println(currDay, " ", currMonth)
 		for ; remainder >= 0; remainder-- {
-			Monthly[currMonth] += stats[currWk].Days[remainder]
+			// Add bounds checking for Days array
+			if currWk >= 0 && currWk < len(stats) && remainder >= 0 && remainder < len(stats[currWk].Days) {
+				Monthly[currMonth] += stats[currWk].Days[remainder]
+			}
 			currDay--
 		}
 		fmt.Println(currDay, " ", currMonth)
 		currWk--
+
+		// Add bounds checking for currWk
+		if currWk < 0 {
+			break
+		}
+
 		for ; currDay > 6; currDay -= 7 {
-			Monthly[currMonth] += stats[currWk].Total
+			if currWk >= 0 && currWk < len(stats) {
+				Monthly[currMonth] += stats[currWk].Total
+			}
 			currWk--
+			if currWk < 0 {
+				break
+			}
 		}
 		fmt.Println(currDay, " ", currMonth)
 		fmt.Println("final count : ", Monthly[currMonth])
+
+		// Fix the remainder calculation to ensure it stays within bounds
 		remainder = 6 - currDay
-		for ; currDay >= 0; currDay-- {
-			Monthly[currMonth] += stats[currWk].Days[6-currDay]
+		if remainder > 6 {
+			remainder = 6
 		}
-		currDay = daysInMonth[currMonth] - remainder
+		if remainder < 0 {
+			remainder = 0
+		}
+
+		for ; currDay >= 0; currDay-- {
+			// Add bounds checking for Days array
+			dayIndex := 6 - currDay
+			if currWk >= 0 && currWk < len(stats) && dayIndex >= 0 && dayIndex < len(stats[currWk].Days) {
+				Monthly[currMonth] += stats[currWk].Days[dayIndex]
+			}
+		}
+
+		// Ensure currMonth bounds
+		if currMonth > 0 {
+			currDay = daysInMonth[currMonth-1] - remainder
+		}
 	}
 
 	response.Monthly = Monthly
