@@ -1,5 +1,5 @@
 import React, { useState, RefObject } from "react";
-import AsciiHeader from "./ascii_header.tsx";
+import AsciiHeader from "./ascii_header";
 
 interface NavItem {
   label: string;

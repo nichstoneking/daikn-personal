@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: "Monaspice";
-  src: url("../src/fonts/RobotoMonoNerdFont-Light.ttf");
+  src: url("./fonts/RobotoMonoNerdFont-Light.ttf");
 }
 
 :root {
@@ -20,6 +20,13 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#__next {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
 .stats-in {

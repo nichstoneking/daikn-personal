@@ -1,12 +1,11 @@
 import axios from 'axios';
+import type { RepositoryResponse } from '../types/api';
 
-// Create axios instance with base configuration
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_APP_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000, // 10 second timeout
+  timeout: 10000,
 });
 
 // Simple in-memory cache for GET requests and specific POST requests
@@ -42,7 +41,7 @@ const generateCacheKey = (method: string, url: string, data?: any, params?: any)
 apiClient.interceptors.request.use(
   (config) => {
     // Cache GET requests and POST requests to /repo endpoint
-    if (config.method === 'get' || (config.method === 'post' && config.url === '/repo')) {
+    if (config.method === 'get' || (config.method === 'post' && config.url === '/api/repo')) {
       const cacheKey = generateCacheKey(config.method!, config.url!, config.data, config.params);
       
       const cachedResponse = cache.get(cacheKey);
@@ -67,7 +66,7 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => {
     // Cache GET responses and POST responses to /repo endpoint
-    if (response.config.method === 'get' || (response.config.method === 'post' && response.config.url === '/repo')) {
+    if (response.config.method === 'get' || (response.config.method === 'post' && response.config.url === '/api/repo')) {
       const cacheKey = generateCacheKey(response.config.method!, response.config.url!, response.config.data, response.config.params);
       
       cache.set(cacheKey, {
@@ -103,10 +102,9 @@ apiClient.interceptors.response.use(
   }
 );
 
-// API functions
-export const fetchRepoData = async (owner: string, repo: string) => {
+export const fetchRepoData = async (owner: string, repo: string): Promise<RepositoryResponse> => {
   try {
-    const response = await apiClient.post('/repo', {
+    const response = await apiClient.post<RepositoryResponse>('/api/repo', {
       owner,
       repo,
     });

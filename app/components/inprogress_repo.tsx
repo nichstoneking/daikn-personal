@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState, SetStateAction } from "react";
 import {
   LineChart,
@@ -9,6 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { fetchRepoData } from "../utils/api";
+import type { RepositoryResponse } from "../types/api";
 
 interface RepoProps {
   owner: string;
@@ -42,8 +45,8 @@ const InprogressRepo: React.FC<RepoProps> = ({
   ]);
   const [loading, setLoading] = useState(false);
 
-  const [data, setData] = useState({
-    recent: "err",
+  const [data, setData] = useState<RepositoryResponse>({
+    recent: 0,
     increase: 0,
     monthly: [65, 59, 80, 81, 56, 55, 40, 48, 52, 69, 75, 88],
     accessed: "",
