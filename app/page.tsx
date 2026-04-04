@@ -24,7 +24,7 @@ export default function Home() {
     {
       label: "This site",
       link: "/",
-      info: "my first (not completely scrapped together) website that i designed on my own with new frameworks (gin go and vite react) to showcase stuff",
+      info: "my first (not completely scrapped together) website that new frameworks (originally gin go and vite react, migrated to ts vercel functions and next) to showcase progress and projects.",
       owner: "daikonk",
       repo: "daikn-personal",
       expanded: false,
