@@ -69,7 +69,7 @@ export default function Home() {
             label: "IDE/Development Configs",
             target: "",
             href: "",
-            info: "Zed + Ghostty + CC/Cursor Agent CLI",
+            info: "Zed + Pi",
         },
     ];
 
