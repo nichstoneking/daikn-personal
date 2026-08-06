@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mui/material": "^6.1.6",
-    "axios": "^1.10.0",
     "framer-motion": "^11.11.17",
     "next": "^15.3.0",
     "react": "^18.3.1",

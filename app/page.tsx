@@ -25,7 +25,7 @@ export default function Home() {
             label: "This site",
             link: "/",
             info: "my first (not completely scrapped together) website that new frameworks (originally gin go and vite react, migrated to ts vercel functions and next) to showcase progress and projects.",
-            owner: "daikonk",
+            owner: "nichstoneking",
             repo: "daikn-personal",
             expanded: false,
         },
@@ -34,19 +34,19 @@ export default function Home() {
     const completed = [
         {
             label: "Bishouji",
-            href: "https://github.com/daikonk/amiami-bot",
+            href: "https://github.com/nichstoneking/amiami-bot",
             target: "_blank",
             info: "a discord bot that allows you to get the last 10 figures posted on amiami, and other random utilities like JPY to USD for figure prices",
         },
         {
             label: "MIPS Maze",
-            href: "https://github.com/daikonk/mips-maze",
+            href: "https://github.com/nichstoneking/mips-maze",
             target: "_blank",
             info: "a maze game with randomly placed keys written in MIPS Assembly (my first exposure to programming)",
         },
         {
             label: "Sports-Matchup Website",
-            href: "https://github.com/daikonk/sports-matchup",
+            href: "https://github.com/nichstoneking/sports-matchup",
             target: "_blank",
             info: "first collaborative web project, a match-up site for local sports enthusiasts",
         },
@@ -148,7 +148,6 @@ export default function Home() {
                                         owner={item.owner}
                                         repo={item.repo}
                                         setDates={setInProgressDates}
-                                        dates={inProgressDates}
                                         index={index}
                                     />
                                 </motion.div>

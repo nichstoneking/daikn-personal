@@ -1,50 +1,50 @@
-# React + TypeScript + Vite
+# daikn-personal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+My personal site — projects, progress, and whatever else I'm building.
 
-Currently, two official plugins are available:
+Live at [daikn-personal.vercel.app](https://daikn-personal.vercel.app).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Stack
 
-## Expanding the ESLint configuration
+- **Next.js 15** (App Router) + React 18 + TypeScript
+- **Tailwind CSS** for styling
+- **Recharts** for the commit-activity chart
+- **Framer Motion** for the expand/collapse transitions
+- Deployed on **Vercel** (push to `master` deploys)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Local development
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm install
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the confg:
+Create a `.env` with a GitHub token — used server-side by `app/api/repo` to read
+commit statistics:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
 ```
+GITHUB_KEY=<github personal access token>
+```
+
+The token needs read access to repository metadata. Without it the GitHub API
+applies unauthenticated rate limits (60 req/hr) and the chart falls back to
+placeholder data.
+
+## Layout
+
+```
+app/
+  page.tsx              home page, project lists
+  api/repo/route.ts     GitHub commit-activity aggregation
+  components/           navbar, footer, charts, ASCII art
+  utils/api.ts          client fetch + per-tab cache
+  types/api.ts          shared request/response types
+```
+
+## Notes
+
+`/api/repo` fetches `stats/commit_activity` from GitHub (52 weeks of daily
+counts), buckets the days into the trailing 12 calendar months, and returns
+those alongside the current month's total and its change vs the previous month.
+GitHub computes these stats asynchronously and returns `202` while doing so, so
+the handler retries before giving up.

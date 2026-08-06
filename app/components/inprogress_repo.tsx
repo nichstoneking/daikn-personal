@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, SetStateAction } from "react";
+import React, { useEffect, useMemo, useState, SetStateAction } from "react";
 import {
   LineChart,
   Line,
@@ -17,80 +17,67 @@ interface RepoProps {
   owner: string;
   repo: string;
   setDates: React.Dispatch<SetStateAction<string[]>>;
-  dates: string[];
   index: number;
 }
+
+// Shown until the real data arrives, and left in place if the fetch fails.
+const PLACEHOLDER: RepositoryResponse = {
+  recent: 0,
+  increase: 0,
+  monthly: [65, 59, 80, 81, 56, 55, 40, 48, 52, 69, 75, 88].map((commits) => ({
+    label: "",
+    year: 0,
+    commits,
+  })),
+  accessed: "",
+};
 
 const InprogressRepo: React.FC<RepoProps> = ({
   owner,
   repo,
   setDates,
-  dates,
   index,
 }) => {
-  // Sample data for the chart
-  const [chartData, setChartData] = useState([
-    { month: "Jan", commits: 65 },
-    { month: "Feb", commits: 59 },
-    { month: "Mar", commits: 80 },
-    { month: "Apr", commits: 81 },
-    { month: "May", commits: 56 },
-    { month: "Jun", commits: 55 },
-    { month: "Jul", commits: 40 },
-    { month: "Aug", commits: 48 },
-    { month: "Sep", commits: 52 },
-    { month: "Oct", commits: 69 },
-    { month: "Nov", commits: 75 },
-    { month: "Dec", commits: 88 },
-  ]);
   const [loading, setLoading] = useState(false);
-
-  const [data, setData] = useState<RepositoryResponse>({
-    recent: 0,
-    increase: 0,
-    monthly: [65, 59, 80, 81, 56, 55, 40, 48, 52, 69, 75, 88],
-    accessed: "",
-  });
+  const [data, setData] = useState<RepositoryResponse>(PLACEHOLDER);
 
   useEffect(() => {
+    let cancelled = false;
+
     async function fetchData() {
       setLoading(true);
       try {
-        const data = await fetchRepoData(owner, repo);
-        setData(data);
-        setLoading(false);
+        const next = await fetchRepoData(owner, repo);
+        if (!cancelled) setData(next);
       } catch (err) {
-        setLoading(false);
         console.log("error fetching data: ", err);
+      } finally {
+        if (!cancelled) setLoading(false);
       }
     }
+
     fetchData();
+    return () => {
+      cancelled = true;
+    };
   }, [owner, repo]);
 
+  // The API already returns the trailing 12 months in chronological order,
+  // so this is a straight mapping — no hand-written month list to fall out of sync.
+  const chartData = useMemo(
+    () =>
+      data.monthly.map((m) => ({
+        month: m.label,
+        commits: m.commits,
+      })),
+    [data]
+  );
+
   useEffect(() => {
-    setChartData([
-      { month: "Jan", commits: data.monthly[0] },
-      { month: "Feb", commits: data.monthly[1] },
-      { month: "Apr", commits: data.monthly[3] },
-      { month: "Mar", commits: data.monthly[2] },
-      { month: "May", commits: data.monthly[4] },
-      { month: "Jun", commits: data.monthly[5] },
-      { month: "Jul", commits: data.monthly[6] },
-      { month: "Sep", commits: data.monthly[8] },
-      { month: "Aug", commits: data.monthly[7] },
-      { month: "Nov", commits: data.monthly[10] },
-      { month: "Dec", commits: data.monthly[11] },
-    ]);
-    const newDates = dates.map((c, i) => {
-      if (i === index) {
-        c = data.accessed;
-        return c;
-      } else {
-        return c;
-      }
-    });
-    setDates(newDates);
-  }, [data, setChartData]);
+    setDates((prev) =>
+      prev.map((value, i) => (i === index ? data.accessed : value))
+    );
+  }, [data.accessed, index, setDates]);
 
   return (
     <>
@@ -112,8 +99,17 @@ const InprogressRepo: React.FC<RepoProps> = ({
                   Commits this Month
                 </h3>
                 <div className="text-xl text-blue-600 mb-1">{data.recent}</div>
-                <span className="text-xs text-green-600">
-                  {data.increase * 100}%
+                <span
+                  className={`text-xs ${
+                    data.increase > 0
+                      ? "text-green-600"
+                      : data.increase < 0
+                        ? "text-red-600"
+                        : "text-gray-500"
+                  }`}
+                >
+                  {data.increase > 0 ? "+" : ""}
+                  {Math.round(data.increase * 100)}%
                 </span>
               </div>
             </div>
