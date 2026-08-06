@@ -62,11 +62,9 @@ async function getYrCommits(
         Authorization: `Bearer ${token}`,
         "X-GitHub-Api-Version": "2022-11-28",
       },
-      // Stats are recomputed by GitHub at most hourly; no point hammering it.
       next: { revalidate: 3600 },
     });
 
-    // 202 means GitHub is computing the stats and the body is empty.
     if (resp.status === 202) {
       if (attempt < MAX_RETRIES) {
         await sleep(RETRY_DELAY_MS);
@@ -96,10 +94,6 @@ const MONTH_LABELS = [
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 ] as const;
 
-// GitHub returns ~52 weeks ending at the current week, so the window always
-// spans two calendar years. Bucket by the real UTC date of each day and emit
-// the trailing 12 months in chronological order — a bare 12-slot array indexed
-// by month number would collide last year's months with this year's.
 function calcWkCommitResponse(
   stats: CommitActivityStats
 ): RepositoryResponse {
@@ -116,7 +110,6 @@ function calcWkCommitResponse(
     }
   }
 
-  // Walk the last 12 months oldest-to-newest, anchored on today.
   const now = new Date();
   const months: MonthlyCommits[] = [];
   for (let offset = 11; offset >= 0; offset--) {
@@ -131,7 +124,6 @@ function calcWkCommitResponse(
     });
   }
 
-  // Most recent day with any commit activity.
   let accessed = "";
   outer: for (let i = stats.length - 1; i >= 0; i--) {
     for (let day = stats[i].days.length - 1; day >= 0; day--) {
@@ -147,8 +139,6 @@ function calcWkCommitResponse(
   const recent = months[11].commits;
   const previous = months[10].commits;
 
-  // Fractional change vs last month. No baseline to divide by means "all new",
-  // which reads as +100% rather than a division by zero.
   let increase: number;
   if (previous === 0) {
     increase = recent === 0 ? 0 : 1;

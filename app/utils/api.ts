@@ -5,8 +5,6 @@ const REQUEST_TIMEOUT = 10_000;
 
 type CacheEntry = { data: RepositoryResponse; timestamp: number };
 
-// Per-tab memo so re-expanding a project doesn't refetch. The route handler
-// does the real caching; this just avoids a round trip on toggle.
 const cache = new Map<string, CacheEntry>();
 
 export const clearCache = () => cache.clear();

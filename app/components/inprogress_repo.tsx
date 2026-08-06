@@ -20,7 +20,6 @@ interface RepoProps {
   index: number;
 }
 
-// Shown until the real data arrives, and left in place if the fetch fails.
 const PLACEHOLDER: RepositoryResponse = {
   recent: 0,
   increase: 0,
@@ -62,8 +61,6 @@ const InprogressRepo: React.FC<RepoProps> = ({
     };
   }, [owner, repo]);
 
-  // The API already returns the trailing 12 months in chronological order,
-  // so this is a straight mapping — no hand-written month list to fall out of sync.
   const chartData = useMemo(
     () =>
       data.monthly.map((m) => ({

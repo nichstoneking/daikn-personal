@@ -4,7 +4,7 @@ export interface RepositoryRequest {
 }
 
 export interface MonthlyCommits {
-  label: string; // "Jan", "Feb", ...
+  label: string;
   year: number;
   commits: number;
 }
@@ -12,7 +12,7 @@ export interface MonthlyCommits {
 export interface RepositoryResponse {
   recent: number;
   increase: number;
-  monthly: MonthlyCommits[]; // trailing 12 months, oldest -> newest
+  monthly: MonthlyCommits[];
   accessed: string;
 }
 
