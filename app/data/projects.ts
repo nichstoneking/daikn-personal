@@ -6,7 +6,28 @@ import type { Project } from "../types/project";
  * Accessed through `repository.ts` rather than imported directly, so this can
  * be swapped for a database without touching any call site.
  */
+
 export const projects: Project[] = [
+  {
+    slug: "chi-board",
+    label: "Chi Agent",
+    href: "/",
+    status: "in-progress",
+    info: "Started as a self-hosted web dashboard, became an agent that interacts with my obsidian and has autonomous control over a few parts of my life",
+    external: false,
+    repo: { owner: "nichstoneking", name: "chi-board" },
+    order: 0,
+  },
+  {
+    slug: "annotation-extension",
+    label: "Annotate",
+    href: "/",
+    status: "in-progress",
+    info: "Small chrome extension allowing tech leads to annotate, comment, and interact on articles they want to share to their teams",
+    external: false,
+    repo: { owner: "nichstoneking", name: "annotation-extension" },
+    order: 1,
+  },
   {
     slug: "daikn-personal",
     label: "This site",
@@ -15,7 +36,7 @@ export const projects: Project[] = [
     info: "Simple webapp originally on vite/react + go -> nextjs + vercel edge functions",
     external: false,
     repo: { owner: "nichstoneking", name: "daikn-personal" },
-    order: 0,
+    order: 2,
   },
   {
     slug: "bishouji",
@@ -67,7 +88,7 @@ export const projects: Project[] = [
     label: "IDE/Development Configs",
     href: "",
     status: "other",
-    info: "Zed + Ghostty + CC/Cursor Agent CLI",
+    info: "Zed + Pi",
     external: false,
     order: 0,
   },
