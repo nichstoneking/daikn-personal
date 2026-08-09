@@ -12,7 +12,7 @@ export const projects: Project[] = [
     label: "This site",
     href: "/",
     status: "in-progress",
-    info: "my first (not completely scrapped together) website that new frameworks (originally gin go and vite react, migrated to ts vercel functions and next) to showcase progress and projects.",
+    info: "Simple webapp originally on vite/react + go -> nextjs + vercel edge functions",
     external: false,
     repo: { owner: "nichstoneking", name: "daikn-personal" },
     order: 0,

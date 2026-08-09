@@ -17,9 +17,9 @@ export interface RepositoryResponse {
 }
 
 export interface WeeklyCommitActivity {
-  week: number; // Unix timestamp for the start of the week
-  total: number; // Total number of commits in the week
-  days: number[]; // Number of commits for each day of the week (0-6, Sun-Sat)
+  week: number;
+  total: number;
+  days: number[];
 }
 
 export type CommitActivityStats = WeeklyCommitActivity[];

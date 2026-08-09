@@ -1,6 +1,6 @@
 # daikn-personal
 
-My personal site — projects, progress, and whatever else I'm building.
+My personal site : projects, progress, and whatever else I'm building.
 
 Live at [daikn-personal.vercel.app](https://daikn-personal.vercel.app).
 
@@ -40,11 +40,3 @@ app/
   utils/api.ts          client fetch + per-tab cache
   types/api.ts          shared request/response types
 ```
-
-## Notes
-
-`/api/repo` fetches `stats/commit_activity` from GitHub (52 weeks of daily
-counts), buckets the days into the trailing 12 calendar months, and returns
-those alongside the current month's total and its change vs the previous month.
-GitHub computes these stats asynchronously and returns `202` while doing so, so
-the handler retries before giving up.

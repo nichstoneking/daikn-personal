@@ -6,8 +6,6 @@ import ProjectItem from "./components/project_item";
 import { getProjectsByStatus } from "./data/repository";
 import { getRepoStats } from "./lib/github";
 
-// Commit stats are revalidated hourly, matching how often GitHub recomputes
-// them. One upstream call per hour regardless of traffic.
 export const revalidate = 3600;
 
 const navItems = [
@@ -23,8 +21,6 @@ export default async function Home() {
         getProjectsByStatus("other"),
     ]);
 
-    // Fetch commit activity for every in-progress project up front so the
-    // chart has data on first paint rather than after a client round trip.
     const stats = await Promise.all(
         inProgress.map((p) =>
             p.repo ? getRepoStats(p.repo.owner, p.repo.name) : null

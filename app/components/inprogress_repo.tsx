@@ -13,11 +13,9 @@ import {
 import type { RepositoryResponse } from "../types/api";
 
 interface RepoProps {
-  /** Fetched server-side. Null when GitHub was unreachable. */
   stats: RepositoryResponse | null;
 }
 
-// Shown when stats are unavailable, matching the previous fallback behaviour.
 const PLACEHOLDER: RepositoryResponse = {
   recent: 0,
   increase: 0,
@@ -32,8 +30,6 @@ const PLACEHOLDER: RepositoryResponse = {
 const InprogressRepo: React.FC<RepoProps> = ({ stats }) => {
   const data = stats ?? PLACEHOLDER;
 
-  // The API returns the trailing 12 months in chronological order, so this is
-  // a straight mapping — no hand-written month list to fall out of sync.
   const chartData = useMemo(
     () => data.monthly.map((m) => ({ month: m.label, commits: m.commits })),
     [data]
@@ -68,7 +64,6 @@ const InprogressRepo: React.FC<RepoProps> = ({ stats }) => {
           </div>
         </div>
 
-        {/* Chart Column */}
         <div className="w-[300px] sm:w-2/3 sm:h-64 sm:ml-0 ml-[-45px] h-52 py-4 flex sm:items-center items-start text-sm">
           <ResponsiveContainer width="95%" height="100%">
             <LineChart data={chartData}>
