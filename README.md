@@ -2,8 +2,6 @@
 
 My personal site : projects, progress, and whatever else I'm building.
 
-Live at [daikn-personal.vercel.app](https://daikn-personal.vercel.app).
-
 ## Stack
 
 - **Next.js 15** (App Router) + React 18 + TypeScript
