@@ -31,7 +31,9 @@ export async function getYrCommits(
         Authorization: `Bearer ${token}`,
         "X-GitHub-Api-Version": "2022-11-28",
       },
-      next: { revalidate: 3600 },
+      ...(attempt === 0
+        ? { next: { revalidate: 3600 } }
+        : { cache: "no-store" as const }),
     });
 
     if (resp.status === 202) {
